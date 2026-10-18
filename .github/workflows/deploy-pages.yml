@@ -25,16 +25,14 @@ jobs:
         uses: actions/checkout@v6
       - name: Setup Pages
         uses: actions/configure-pages@v5
-      - name: Extract Webflow site
+      - name: Check site files
         run: |
-          mkdir -p dist
-          unzip -q stablemind-github-pages.zip -d dist
-          test -f dist/index.html
-          test -f dist/CNAME
+          test -f site/index.html
+          test -f site/CNAME
       - name: Upload site
         uses: actions/upload-pages-artifact@v4
         with:
-          path: dist
+          path: site
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v4

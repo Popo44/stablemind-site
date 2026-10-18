@@ -1,0 +1,154 @@
+/* Light Webflow backgrounds need their light-mode foreground as well. */
+.background-color-primary.alternate,
+.background-color-secondary.alternate,
+.background-color-tertiary.alternate,
+.background-color-quaternary.alternate {
+  color: var(--text-color-light-mode--text-primary);
+}
+
+.layout351_content-wrapper,
+.layout351_content-wrapper .text-color-special,
+.testimonial17_content-top {
+  color: var(--text-color-light-mode--text-primary);
+}
+
+.section_faq4 h3.alternate,
+.section_faq4 p.alternate,
+.section_faq4 .link-alternate {
+  color: var(--text-color-light-mode--text-primary);
+}
+
+/* Continuous project rows, retaining the original card widths and 4:3 ratio. */
+[data-project-marquee] {
+  align-items: flex-start;
+}
+
+[data-project-marquee] .layout414_image-list {
+  display: flex;
+  flex: 0 0 auto;
+  width: max-content;
+  gap: 0;
+  animation: project-marquee var(--marquee-duration, 49s) linear infinite;
+  animation-delay: 3s;
+  animation-fill-mode: both;
+  animation-play-state: paused;
+}
+
+[data-project-marquee].is-running .layout414_image-list {
+  animation-play-state: running;
+}
+
+[data-project-marquee] .image-list-bottom {
+  animation-direction: reverse;
+}
+
+.project-marquee-group {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 1rem;
+  padding-right: 1rem;
+}
+
+.project-marquee-group .layout414_image-wrapper {
+  flex: 0 0 auto;
+}
+
+[data-project-marquee]:hover .layout414_image-list,
+[data-project-marquee]:focus-within .layout414_image-list {
+  animation-play-state: paused;
+}
+
+@keyframes project-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-project-marquee] .layout414_image-list {
+    width: 100%;
+    animation: none;
+    transform: none !important;
+    overflow-x: auto;
+  }
+  .project-marquee-group[aria-hidden="true"] { display: none; }
+}
+
+/* Keep the footer wave below the call to action at every desktop width. */
+.section_cta27 .image-11 {
+  top: calc(100% - 2rem);
+  pointer-events: none;
+}
+
+/* Preserve the moving project rows without letting them widen the page. */
+.page-wrapper {
+  overflow-x: clip;
+}
+
+/* Restore the staggered review wall with cards at their natural height. */
+.testimonial17_component {
+  display: block;
+  column-count: 3;
+  column-gap: 1rem;
+  min-width: 0;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.testimonial17_card,
+.testimonial17_card.background-color-tertiary.alternate {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  display: inline-flex;
+  break-inside: avoid;
+  vertical-align: top;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 991px) {
+  .testimonial17_component { column-count: 2; }
+}
+
+@media (max-width: 767px) {
+  .testimonial17_component { column-count: 1; }
+}
+
+/* Mobile section waves span their section and stay attached to its edge. */
+@media (max-width: 767px) {
+  .transition-full-page {
+    width: 100%;
+    max-width: none;
+    height: auto;
+    margin: 0;
+    top: calc(100% - 1px);
+    bottom: auto;
+    left: 0;
+    right: auto;
+    pointer-events: none;
+  }
+
+  .transition-full-page.horizontal-mirror {
+    margin: 0;
+    top: auto;
+    bottom: calc(100% - 1px);
+  }
+
+  .section_cta27 > .padding-global {
+    padding-bottom: clamp(8rem, 35vw, 18rem);
+  }
+
+  .section_cta27 .image-12 {
+    z-index: 1;
+  }
+
+  .section_cta27 .image-11 {
+    width: 100%;
+    max-width: none;
+    height: auto;
+    top: auto;
+    bottom: -1px;
+    left: 0;
+    right: auto;
+  }
+}
