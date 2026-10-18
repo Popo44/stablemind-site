@@ -64,3 +64,18 @@ Les chiffres commerciaux déjà présents dans le site (par exemple +35 % de ren
 ## Tester avant commit
 
 Double-cliquer sur `preview.cmd` dans le dépôt, puis ouvrir `http://127.0.0.1:4190/`. Recharger avec Ctrl+F5. Vérifier en particulier les nouveaux textes, le carrousel, les offres et le raccord de la fusée. Les fichiers ne sont ni committés ni poussés par cette intervention.
+
+## Seconde passe : polices et images adaptatives
+
+La première passe a été publiée avec succès dans le commit `5982348`. Les corrections ci-dessous sont préparées localement, sans nouveau commit ni push.
+
+- Conversion des quatre polices variables en WOFF2, sans sous-ensemble : tous les caractères, les tables de correspondance et les axes de variation sont conservés et comparés aux TTF. Poids cumulé : 571 364 → 214 528 octets, soit 62,5 % de moins pour ces quatre fichiers. Les TTF restent disponibles en secours. Les déclarations `@font-face` en double ont été supprimées.
+- Préchargement limité aux deux polices normales utilisées dès l’accueil, avec le bon type et `crossorigin`. Les italiques restent chargées selon les besoins de la page.
+- Portraits de Pauline et Guillaume déclinés en vraies variantes WebP, avec des largeurs déclarées exactes. Le portrait de Guillaume n’utilise plus une seule image de 2 000 px annoncée successivement comme une image de 500, 800, 1 080, 1 600 ou 2 600 px.
+- Largeurs incorrectes et doublons retirés des autres `srcset`, notamment les illustrations du premier écran. Les tailles déclarées des illustrations correspondent à leurs largeurs sur ordinateur.
+- Sur les écrans jusqu’à 991 px, les six illustrations du premier écran étant déjà masquées par le design, une source transparente locale de 1 pixel évite de sélectionner leurs fichiers de grande taille. Sur ordinateur, les illustrations d’origine restent visibles et leurs images se chargent correctement. Le navigateur a confirmé les sources retenues sur les deux formats.
+- Le contrôle automatique lit maintenant les dimensions réelles des WebP/PNG pour détecter une largeur fausse ou dupliquée dans un `srcset`, sans dépendance Python supplémentaire dans GitHub Actions.
+- Contrôles : 143 sources adaptatives vérifiées ; 8 HTML, 4 canoniques et 424 références locales valides. Polices et illustrations vérifiées visuellement ; aucun débordement horizontal sur les formats mobile et bureau contrôlés.
+- La demande de mesure PageSpeed Insights via l’API publique a reçu HTTP 429 (quota). Aucun score Lighthouse ni résultat Core Web Vitals n’est donc annoncé. Relancer cette mesure après le prochain déploiement.
+
+Références : [web.dev — polices](https://web.dev/articles/font-best-practices), [fontTools — WOFF2](https://fonttools.readthedocs.io/en/latest/ttLib/ttFont.html).

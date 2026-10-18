@@ -1,6 +1,6 @@
 @font-face {
   font-family: Flowersofnineties Variablevf;
-  src: url('../fonts/flowersofnineties-variablevf.ttf') format("truetype");
+  src: url('../fonts/flowersofnineties-variablevf.woff2') format('woff2'), url('../fonts/flowersofnineties-variablevf.ttf') format('truetype');
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
@@ -8,7 +8,7 @@
 
 @font-face {
   font-family: Flowersofnineties;
-  src: url('../fonts/flowersofnineties-italicvariablevf.ttf') format("truetype");
+  src: url('../fonts/flowersofnineties-italicvariablevf.woff2') format('woff2'), url('../fonts/flowersofnineties-italicvariablevf.ttf') format('truetype');
   font-weight: 100 900;
   font-style: italic;
   font-display: swap;
@@ -16,7 +16,7 @@
 
 @font-face {
   font-family: Mulish Variablefont Wght;
-  src: url('../fonts/mulish-italic-variablefont_wght.ttf') format("truetype");
+  src: url('../fonts/mulish-italic-variablefont_wght.woff2') format('woff2'), url('../fonts/mulish-italic-variablefont_wght.ttf') format('truetype');
   font-weight: 200 1000;
   font-style: italic;
   font-display: swap;
@@ -24,7 +24,7 @@
 
 @font-face {
   font-family: Mulish Variablefont Wght;
-  src: url('../fonts/mulish-variablefont_wght.ttf') format("truetype");
+  src: url('../fonts/mulish-variablefont_wght.woff2') format('woff2'), url('../fonts/mulish-variablefont_wght.ttf') format('truetype');
   font-weight: 200 1000;
   font-style: normal;
   font-display: swap;
@@ -5285,34 +5285,4 @@ figcaption {
   #w-node-c26f7ec4-14a9-7661-e43d-1760ae3c9fc3-2c44d9da, #w-node-b30f8ebf-c9cd-effa-2c4b-71b73cefb762-2c44d9da, #w-node-c26f7ec4-14a9-7661-e43d-1760ae3c9fc3-97dcfc48 {
     justify-self: center;
   }
-}
-
-
-@font-face {
-  font-family: 'Flowersofnineties Variablevf';
-  src: url('../fonts/flowersofnineties-variablevf.ttf') format('truetype');
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Flowersofnineties';
-  src: url('../fonts/flowersofnineties-italicvariablevf.ttf') format('truetype');
-  font-weight: 100 900;
-  font-style: italic;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Mulish Variablefont Wght';
-  src: url('../fonts/mulish-italic-variablefont_wght.ttf') format('truetype');
-  font-weight: 200 1000;
-  font-style: italic;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Mulish Variablefont Wght';
-  src: url('../fonts/mulish-variablefont_wght.ttf') format('truetype');
-  font-weight: 200 1000;
-  font-style: normal;
-  font-display: swap;
 }

@@ -56,6 +56,27 @@ def local_path(page, url):
     return target
 
 
+def image_width(path):
+    """Read widths of our responsive WebP/PNG assets without extra packages."""
+    data = path.read_bytes()
+    if data.startswith(b'\x89PNG\r\n\x1a\n'):
+        return int.from_bytes(data[16:20], 'big')
+    if data[:4] == b'RIFF' and data[8:12] == b'WEBP':
+        offset = 12
+        while offset + 8 <= len(data):
+            kind = data[offset:offset + 4]
+            size = int.from_bytes(data[offset + 4:offset + 8], 'little')
+            payload = data[offset + 8:offset + 8 + size]
+            if kind == b'VP8X':
+                return int.from_bytes(payload[4:7], 'little') + 1
+            if kind == b'VP8 ':
+                return int.from_bytes(payload[6:8], 'little') & 0x3fff
+            if kind == b'VP8L':
+                return (int.from_bytes(payload[1:5], 'little') & 0x3fff) + 1
+            offset += 8 + size + (size % 2)
+    raise AssertionError(f'Unsupported responsive image format: {path.name}')
+
+
 pages = {p: Page(p.read_text(encoding='utf-8')) for p in ROOT.rglob('*.html')}
 canonicals = set()
 refs = 0
@@ -94,7 +115,16 @@ for path, page in pages.items():
         if tag in ['link', 'a'] and attrs.get('href'):
             urls.append(attrs['href'])
         if attrs.get('srcset'):
-            urls += [part.strip().split()[0] for part in attrs['srcset'].split(',')]
+            widths = set()
+            for part in attrs['srcset'].split(','):
+                candidate = part.strip().split()
+                urls.append(candidate[0])
+                if len(candidate) == 2 and candidate[1].endswith('w'):
+                    width = int(candidate[1][:-1])
+                    assert width not in widths, f'{label}: duplicate width in srcset'
+                    widths.add(width)
+                    image = local_path(path, candidate[0])
+                    assert width == image_width(image), f'{label}: wrong width for {candidate[0]}'
         for url in urls:
             parsed = urlsplit(url)
             if parsed.scheme or parsed.netloc:
