@@ -29,6 +29,8 @@ jobs:
         run: |
           test -f site/index.html
           test -f site/CNAME
+      - name: Check SEO and local links
+        run: python3 scripts/check-seo.py
       - name: Upload site
         uses: actions/upload-pages-artifact@v4
         with:

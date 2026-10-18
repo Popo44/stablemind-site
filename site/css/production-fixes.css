@@ -73,12 +73,6 @@
   .project-marquee-group[aria-hidden="true"] { display: none; }
 }
 
-/* Keep the footer wave below the call to action at every desktop width. */
-.section_cta27 .image-11 {
-  top: calc(100% - 2rem);
-  pointer-events: none;
-}
-
 /* Preserve the moving project rows without letting them widen the page. */
 .page-wrapper {
   overflow-x: clip;
@@ -134,21 +128,45 @@
     bottom: calc(100% - 1px);
   }
 
-  .section_cta27 > .padding-global {
-    padding-bottom: clamp(8rem, 35vw, 18rem);
-  }
+}
 
-  .section_cta27 .image-12 {
-    z-index: 1;
-  }
+/* Original scalloped backdrop, with the rocket on the footer baseline. */
+.section_cta27 > .padding-global {
+  --footer-rocket-width: clamp(12rem, 28vw, 20rem);
+  position: relative;
+  padding-bottom: calc(var(--footer-rocket-width) * .66 + 3rem);
+}
 
-  .section_cta27 .image-11 {
-    width: 100%;
-    max-width: none;
-    height: auto;
-    top: auto;
-    bottom: -1px;
-    left: 0;
-    right: auto;
-  }
+.section_cta27 .image-11 {
+  border-radius: 0;
+  position: absolute;
+  display: block;
+  width: min(100%, calc(var(--footer-rocket-width) * 1.5));
+  max-width: 100%;
+  height: auto;
+  top: auto;
+  bottom: -1px;
+  left: 50%;
+  right: auto;
+  margin: 0;
+  transform: translateX(-50%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.section_cta27 .image-12 {
+  position: absolute;
+  display: block;
+  width: var(--footer-rocket-width);
+  min-width: 0;
+  max-width: calc(100% - 2rem);
+  height: auto;
+  top: auto;
+  bottom: 0;
+  left: 50%;
+  right: auto;
+  margin: 0;
+  transform: translateX(-50%);
+  z-index: 1;
+  pointer-events: none;
 }
