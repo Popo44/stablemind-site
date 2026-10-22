@@ -92,7 +92,14 @@ for path, page in pages.items():
     for prop in ['og:title', 'og:description', 'og:image', 'og:type', 'og:locale']:
         assert len([a for a in metas if a.get('property') == prop and a.get('content')]) == 1, f'{label}: {prop}'
     links = [a for t, a in tags if t == 'link' and a.get('rel') == 'canonical']
-    if path.name == '404.html':
+    redirects = [a for a in metas if a.get('http-equiv', '').lower() == 'refresh']
+    if redirects:
+        assert len(redirects) == 1 and redirects[0].get('content') == f'0; url={BASE}/', f'{label}: unexpected migration target'
+        assert path.relative_to(ROOT).as_posix() in ['old-home-2.html', 'old-home-2/index.html'], f'{label}: undeclared redirect'
+        assert len(links) == 1 and links[0]['href'] == BASE + '/'
+        assert any(a.get('name') == 'robots' and 'noindex' in a.get('content', '') for a in metas)
+        assert not page.json_blocks
+    elif path.name == '404.html':
         assert not links and any(a.get('name') == 'robots' and 'noindex' in a.get('content', '') for a in metas)
         assert not page.json_blocks
     else:

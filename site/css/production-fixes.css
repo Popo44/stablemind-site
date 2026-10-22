@@ -170,3 +170,9 @@
   z-index: 1;
   pointer-events: none;
 }
+
+/* Reserve the SVG wave ratio before lazy images finish loading. */
+.transition-full-page {
+  height: auto;
+  aspect-ratio: 2409 / 116;
+}
